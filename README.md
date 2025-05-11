@@ -36,7 +36,7 @@ Acesse o projeto em: http://localhost:8000
 
 ## 🛠 Estrutura do Projeto
 - manage.py — Comando de gerenciamento
-- app/ — Seu(s) aplicativo(s) Django
+- core/ — Aplicativo(s) Django
 - templates/ — Templates HTML (se houver)
 - static/ — Arquivos estáticos (CSS, JS, imagens)
 
