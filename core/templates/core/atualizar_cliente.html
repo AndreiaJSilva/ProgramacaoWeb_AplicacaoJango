@@ -1,0 +1,13 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Atualizar Cliente{% endblock %}
+
+{% block content %}
+<h2>Atualizar Cliente: {{ cliente.nome }}</h2>
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Salvar Alterações</button>
+</form>
+<a href="{% url 'listar_clientes' %}">Voltar</a>
+{% endblock %}

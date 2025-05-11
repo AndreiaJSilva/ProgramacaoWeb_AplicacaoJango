@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>{% block title %}Lavras Pharm{% endblock %}</title>
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'core/style.css' %}">
+</head>
+
+<body>
+
+  <!-- Cabeçalho -->
+  <header class="top-bar">
+    <h1>Lavras Pharm</h1>
+  </header>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <ul>
+      <li>
+        Cliente
+        <ul>
+          <li><a href="{% url 'cadastrar_cliente' %}">Cadastrar</a></li>
+          <li><a href="{% url 'listar_clientes' %}">Visualizar Cadastro</a></li>
+          <li><a href="{% url 'listar_clientes' %}">Atualizar</a></li>
+          <li><a href="{% url 'listar_clientes' %}">Excluir</a></li>
+
+        </ul>
+      </li>
+      <li>
+        Medicamentos
+        <ul>
+          <li><a href="#">Cadastrar</a></li>
+          <li><a href="#">Visualizar Cadastro</a></li>
+          <li><a href="#">Atualizar</a></li>
+          <li><a href="#">Excluir</a></li>
+        </ul>
+      </li>
+      <li>
+        Compras
+        <ul>
+          <li><a href="#">Visualizar</a></li>
+          <li><a href="#">Atualizar</a></li>
+          <li><a href="#">Excluir</a></li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- Conteúdo principal -->
+  <main>
+    {% block content %}
+    {% endblock %}
+  </main>
+
+</body>
+
+</html>
