@@ -35,22 +35,27 @@ body {
 .navbar ul li ul {
     display: none;
     position: absolute;
-    top: 30px;
+    top: 100%;
     left: 0;
     background-color: #D2143C;
     color: white;
     padding: 10px;
     border-radius: 4px;
     z-index: 100;
+    min-width: 180px;
 }
 
-.navbar ul li:hover ul {
+.navbar ul li:hover > ul {
     display: block;
 }
 
 .navbar ul li ul li {
     padding: 5px 10px;
     white-space: nowrap;
+}
+
+.navbar ul li ul:hover {
+    display: block;
 }
 
 .navbar a {
