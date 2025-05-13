@@ -1,0 +1,15 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Excluir Compra{% endblock %}
+
+{% block content %}
+<h2>Tem certeza que deseja excluir esta compra?</h2>
+<p><strong>Cliente:</strong> {{ compra.cliente.nome }}</p>
+<p><strong>Medicamento:</strong> {{ compra.medicamento.nomeMedicamento }}</p>
+<p><strong>Data:</strong> {{ compra.data }}</p>
+<form method="post">
+  {% csrf_token %}
+  <button type="submit">Confirmar Exclusão</button>
+  <a href="{% url 'lista_compras' %}">Cancelar</a>
+</form>
+{% endblock %}

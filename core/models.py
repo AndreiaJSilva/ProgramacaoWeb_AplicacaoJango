@@ -29,10 +29,15 @@ class Medicamento(models.Model):
     
 
 class Compra(models.Model):
-    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE, related_name='compras')
-    medicamentos = models.ManyToManyField(Medicamento, related_name='compras')
-    data = models.DateField()
-    valor = models.DecimalField(max_digits=10, decimal_places=2)
+  cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE, related_name='compras')
+  medicamento = models.ForeignKey(Medicamento, on_delete=models.CASCADE, related_name='compras', null=True)
+  quantidade = models.PositiveIntegerField(default=1)
+  data = models.DateField(auto_now_add=True)  # auto_now_add para registrar a data automaticamente
+  valor = models.DecimalField(max_digits=10, decimal_places=2)
 
-    def __str__(self):
-        return f"Compra de {self.cliente.nome} em {self.data}"
+  def save(self, *args, **kwargs):
+      self.valor = self.medicamento.preco * self.quantidade
+      super().save(*args, **kwargs)
+
+  def __str__(self):
+      return f"Compra de {self.cliente.nome} em {self.data}"

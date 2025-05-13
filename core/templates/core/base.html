@@ -35,13 +35,12 @@
        </ul>
       </li>
       <li>
-        Compras
-        <ul>
-          <li><a href="#">Visualizar</a></li>
-          <li><a href="#">Atualizar</a></li>
-          <li><a href="#">Excluir</a></li>
-        </ul>
-      </li>
+      Compras
+      <ul>
+        <li><a href="{% url 'registrar_compra' %}">Registrar</a></li>
+         <li><a href="{% url 'lista_compras' %}">Compras Registradas</a></li>
+      </ul>
+    </li> 
     </ul>
   </nav>
 
