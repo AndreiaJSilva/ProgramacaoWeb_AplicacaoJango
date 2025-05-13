@@ -1,5 +1,5 @@
 from django import forms
-from .models import Cliente, Medicamento
+from .models import Cliente, Medicamento, Compra
 
 class ClienteForm(forms.ModelForm):
     class Meta:
@@ -10,3 +10,8 @@ class MedicamentoForm(forms.ModelForm):
   class Meta:
       model = Medicamento
       fields = ['nomeMedicamento', 'fabricante', 'preco']
+
+class CompraForm(forms.ModelForm):
+  class Meta:
+      model = Compra
+      fields = ['cliente', 'medicamento', 'quantidade']

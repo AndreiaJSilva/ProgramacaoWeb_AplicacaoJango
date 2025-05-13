@@ -1,5 +1,5 @@
 from django.shortcuts import get_object_or_404, render, redirect
-from .forms import ClienteForm, MedicamentoForm
+from .forms import ClienteForm, MedicamentoForm, CompraForm
 from .models import Cliente, Medicamento, Compra
 from django.contrib.auth.decorators import login_required
 
@@ -74,6 +74,38 @@ def excluir_medicamento(request, medicamento_id):
       medicamento.delete()
       return redirect('listar_medicamentos')
   return render(request, 'core/excluir_medicamento.html', {'medicamento': medicamento})
+
+def registrar_compra(request):
+  if request.method == 'POST':
+      form = CompraForm(request.POST)
+      if form.is_valid():
+          form.save()
+          return redirect('lista_compras')
+  else:
+      form = CompraForm()
+  return render(request, 'core/registrar_compra.html', {'form': form})
+
+def lista_compras(request):
+  compras = Compra.objects.all()
+  return render(request, 'core/lista_compras.html', {'compras': compras})
+
+def editar_compra(request, pk):
+  compra = get_object_or_404(Compra, pk=pk)
+  if request.method == 'POST':
+      form = CompraForm(request.POST, instance=compra)
+      if form.is_valid():
+          form.save()
+          return redirect('lista_compras')
+  else:
+      form = CompraForm(instance=compra)
+  return render(request, 'core/editar_compra.html', {'form': form})
+
+def excluir_compra(request, pk):
+  compra = get_object_or_404(Compra, pk=pk)
+  if request.method == 'POST':
+      compra.delete()
+      return redirect('lista_compras')
+  return render(request, 'core/excluir_compra.html', {'compra': compra})
 
 
 
