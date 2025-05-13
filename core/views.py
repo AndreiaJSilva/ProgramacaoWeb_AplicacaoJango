@@ -1,6 +1,7 @@
 from django.shortcuts import get_object_or_404, render, redirect
-from .forms import ClienteForm
+from .forms import ClienteForm, MedicamentoForm
 from .models import Cliente, Medicamento, Compra
+from django.contrib.auth.decorators import login_required
 
 def home(request):
     clientes = Cliente.objects.all()
@@ -47,7 +48,35 @@ def excluir_cliente(request, cliente_id):
         return redirect('listar_clientes')
     return render(request, 'core/excluir_cliente.html', {'cliente': cliente})
 
-from django.shortcuts import render
+
+def cadastrar_medicamento(request):
+  form = MedicamentoForm(request.POST or None)
+  if form.is_valid():
+      form.save()
+      return redirect('listar_medicamentos')
+  return render(request, 'core/cadastrar_medicamento.html', {'form': form})
+
+def listar_medicamentos(request):
+  medicamentos = Medicamento.objects.all()
+  return render(request, 'core/listar_medicamentos.html', {'medicamentos': medicamentos})
+
+def atualizar_medicamento(request, medicamento_id):
+  medicamento = get_object_or_404(Medicamento, id=medicamento_id)
+  form = MedicamentoForm(request.POST or None, instance=medicamento)
+  if form.is_valid():
+      form.save()
+      return redirect('listar_medicamentos')
+  return render(request, 'core/cadastrar_medicamento.html', {'form': form})
+
+def excluir_medicamento(request, medicamento_id):
+  medicamento = get_object_or_404(Medicamento, id=medicamento_id)
+  if request.method == 'POST':
+      medicamento.delete()
+      return redirect('listar_medicamentos')
+  return render(request, 'core/excluir_medicamento.html', {'medicamento': medicamento})
+
+
+
 
 def teste_css(request):
     return render(request, 'core/teste_css.html')

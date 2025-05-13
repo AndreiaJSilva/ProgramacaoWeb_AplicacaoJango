@@ -1,0 +1,12 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<h2>Excluir Medicamento</h2>
+<p>Tem certeza que deseja excluir "{{ medicamento.nomeMedicamento }}"?</p>
+
+<form method="post">
+  {% csrf_token %}
+  <button type="submit">Sim, excluir</button>
+  <a href="{% url 'listar_medicamentos' %}">Cancelar</a>
+</form>
+{% endblock %}
