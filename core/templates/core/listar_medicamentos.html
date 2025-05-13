@@ -1,0 +1,31 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Lista de Medicamentos{% endblock %}
+
+{% block content %}
+<h2>Medicamentos Cadastrados</h2>
+<table border="1">
+  <tr>
+    <th>Nome</th>
+    <th>Fabricante</th>
+    <th>Preço</th>
+    <th>Ações</th>
+  </tr>
+  {% for medicamento in medicamentos %}
+  <tr>
+    <td>{{ medicamento.nomeMedicamento }}</td>
+    <td>{{ medicamento.fabricante }}</td>
+    <td>{{ medicamento.preco }}</td>
+    <td>
+      <a href="{% url 'atualizar_medicamento' medicamento.id %}">Editar</a> |
+      <a href="{% url 'excluir_medicamento' medicamento.id %}">Excluir</a>
+    </td>
+  </tr>
+  {% empty %}
+  <tr>
+    <td colspan="5">Nenhum medicamento cadastrado.</td>
+  </tr>
+  {% endfor %}
+</table>
+<a href="{% url 'cadastrar_medicamento' %}">Cadastrar novo medicamento</a>
+{% endblock %}

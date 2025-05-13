@@ -1,7 +1,12 @@
 from django import forms
-from .models import Cliente
+from .models import Cliente, Medicamento
 
 class ClienteForm(forms.ModelForm):
     class Meta:
         model = Cliente
         fields = ['nome', 'cpf', 'endereco', 'telefone']
+
+class MedicamentoForm(forms.ModelForm):
+  class Meta:
+      model = Medicamento
+      fields = ['nomeMedicamento', 'fabricante', 'preco']

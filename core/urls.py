@@ -9,4 +9,10 @@ urlpatterns = [
     path('clientes/excluir/<int:cliente_id>/', views.excluir_cliente, name='excluir_cliente'),
     path('teste-css/', views.teste_css, name='teste_css'),
 
+    # Rotas Medicamento
+   path('medicamentos/', views.listar_medicamentos, name='listar_medicamentos'),
+   path('cadastrar-medicamento/', views.cadastrar_medicamento, name='cadastrar_medicamento'),
+   path('medicamentos/atualizar/<int:medicamento_id>/', views.atualizar_medicamento, name='atualizar_medicamento'),
+   path('medicamentos/excluir/<int:medicamento_id>/', views.excluir_medicamento, name='excluir_medicamento'),
+
 ]

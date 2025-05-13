@@ -1,3 +1,4 @@
+# python manage.py runserver
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
@@ -15,13 +16,17 @@ class Cliente(models.Model):
     def __str__(self):
         return self.nome
 
+
 class Medicamento(models.Model):
     nomeMedicamento = models.CharField(max_length=100)
     fabricante = models.CharField(max_length=100)
     descricao = models.TextField()
+    preco = models.DecimalField(max_digits=7, decimal_places=2, default=0.00)
 
     def __str__(self):
         return self.nomeMedicamento
+
+    
 
 class Compra(models.Model):
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE, related_name='compras')
