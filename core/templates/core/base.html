@@ -23,24 +23,43 @@
       <li>
         Cliente
         <ul>
+          {% if user.is_authenticated %}
           <li><a href="{% url 'cadastrar_cliente' %}">Cadastrar</a></li>
+          {% endif %}
           <li><a href="{% url 'listar_clientes' %}">Visualizar Cadastro</a></li>
         </ul>
       </li>
+  
       <li>
-         Medicamentos
+        Medicamentos
         <ul>
+          {% if user.is_authenticated %}
           <li><a href="{% url 'cadastrar_medicamento' %}">Cadastrar</a></li>
+          {% endif %}
           <li><a href="{% url 'listar_medicamentos' %}">Medicamentos Cadastrados</a></li>
-       </ul>
+        </ul>
       </li>
+  
       <li>
-      Compras
-      <ul>
-        <li><a href="{% url 'registrar_compra' %}">Registrar</a></li>
-         <li><a href="{% url 'lista_compras' %}">Compras Registradas</a></li>
-      </ul>
-    </li> 
+        Compras
+        <ul>
+          {% if user.is_authenticated %}
+          <li><a href="{% url 'registrar_compra' %}">Registrar</a></li>
+          {% endif %}
+          <li><a href="{% url 'lista_compras' %}">Compras Registradas</a></li>
+        </ul>
+      </li>
+  
+      <li>
+        {% if user.is_authenticated %}
+        <form method="post" action="{% url 'logout' %}" style="display:inline;">
+          {% csrf_token %}
+          <button type="submit" class="logout-link">Sair</button>
+        </form>
+        {% else %}
+        <a href="{% url 'login' %}">Entrar</a>
+        {% endif %}
+      </li>
     </ul>
   </nav>
 

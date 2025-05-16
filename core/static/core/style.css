@@ -67,6 +67,32 @@ body {
     color: #FDF5E6;
 }
 
+.navbar ul > li {
+    color: #D2143C;
+}
+
 main {
     padding: 20px;
+}
+
+.navbar form {
+    margin: 0;
+}
+
+.logout-link {
+    background: none;
+    border: none;
+    color: #D2143C;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: inherit;
+    font-family: inherit;
+    font-weight: bold;
+    padding: 0;
+    text-decoration: none;
+}
+
+.logout-link:hover {
+    text-decoration: underline;
+    color: #a0102e;
 }

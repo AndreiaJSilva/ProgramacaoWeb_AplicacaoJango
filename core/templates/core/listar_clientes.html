@@ -8,20 +8,25 @@
   <tr>
     <th>Nome</th>
     <th>CPF</th>
+    {% if user.is_authenticated %}
     <th>Ações</th>
+    {% endif %}
   </tr>
   {% for cliente in clientes %}
   <tr>
     <td>{{ cliente.nome }}</td>
     <td>{{ cliente.cpf }}</td>
+    {% if user.is_authenticated %}
     <td>
-      <a href="{% url 'atualizar_cliente' cliente.id %}">Atualizar</a> |
+      <a href="{% url 'atualizar_cliente' cliente.id %}">Atualizar</a>
       <a href="{% url 'excluir_cliente' cliente.id %}">Excluir</a>
     </td>
+    {% endif %}
   </tr>
   {% empty %}
   <tr>
-    <td colspan="3">Nenhum cliente cadastrado.</td>
+    <td colspan="{% if user.is_authenticated %}3{% else %}2{% endif %}">
+      Nenhum cliente cadastrado.</td>
   </tr>
   {% endfor %}
 </table>

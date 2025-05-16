@@ -13,6 +13,7 @@ def home(request):
         'compras': compras
     })
 
+@login_required
 def cadastrar_cliente(request):
     if request.method == 'POST':
         form = ClienteForm(request.POST)
@@ -30,6 +31,7 @@ def listar_clientes(request):
     clientes = Cliente.objects.all()
     return render(request, 'core/listar_clientes.html', {'clientes': clientes})
 
+@login_required
 def atualizar_cliente(request, cliente_id):
     cliente = get_object_or_404(Cliente, id=cliente_id)
     if request.method == 'POST':
@@ -41,6 +43,7 @@ def atualizar_cliente(request, cliente_id):
         form = ClienteForm(instance=cliente)
     return render(request, 'core/atualizar_cliente.html', {'form': form, 'cliente': cliente})
 
+@login_required
 def excluir_cliente(request, cliente_id):
     cliente = get_object_or_404(Cliente, id=cliente_id)
     if request.method == 'POST':
@@ -48,7 +51,7 @@ def excluir_cliente(request, cliente_id):
         return redirect('listar_clientes')
     return render(request, 'core/excluir_cliente.html', {'cliente': cliente})
 
-
+@login_required
 def cadastrar_medicamento(request):
   form = MedicamentoForm(request.POST or None)
   if form.is_valid():
@@ -60,6 +63,7 @@ def listar_medicamentos(request):
   medicamentos = Medicamento.objects.all()
   return render(request, 'core/listar_medicamentos.html', {'medicamentos': medicamentos})
 
+@login_required
 def atualizar_medicamento(request, medicamento_id):
   medicamento = get_object_or_404(Medicamento, id=medicamento_id)
   form = MedicamentoForm(request.POST or None, instance=medicamento)
@@ -68,6 +72,7 @@ def atualizar_medicamento(request, medicamento_id):
       return redirect('listar_medicamentos')
   return render(request, 'core/cadastrar_medicamento.html', {'form': form})
 
+@login_required
 def excluir_medicamento(request, medicamento_id):
   medicamento = get_object_or_404(Medicamento, id=medicamento_id)
   if request.method == 'POST':
@@ -75,6 +80,7 @@ def excluir_medicamento(request, medicamento_id):
       return redirect('listar_medicamentos')
   return render(request, 'core/excluir_medicamento.html', {'medicamento': medicamento})
 
+@login_required
 def registrar_compra(request):
   if request.method == 'POST':
       form = CompraForm(request.POST)
@@ -89,6 +95,7 @@ def lista_compras(request):
   compras = Compra.objects.all()
   return render(request, 'core/lista_compras.html', {'compras': compras})
 
+@login_required
 def editar_compra(request, pk):
   compra = get_object_or_404(Compra, pk=pk)
   if request.method == 'POST':
@@ -100,14 +107,13 @@ def editar_compra(request, pk):
       form = CompraForm(instance=compra)
   return render(request, 'core/editar_compra.html', {'form': form})
 
+@login_required
 def excluir_compra(request, pk):
   compra = get_object_or_404(Compra, pk=pk)
   if request.method == 'POST':
       compra.delete()
       return redirect('lista_compras')
   return render(request, 'core/excluir_compra.html', {'compra': compra})
-
-
 
 
 def teste_css(request):

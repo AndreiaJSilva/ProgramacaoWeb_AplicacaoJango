@@ -12,7 +12,9 @@
       <th>Quantidade</th>
       <th>Data</th>
       <th>Valor</th>
+      {% if user.is_authenticated %}
       <th>Ações</th>
+      {% endif %}
     </tr>
   </thead>
   <tbody>
