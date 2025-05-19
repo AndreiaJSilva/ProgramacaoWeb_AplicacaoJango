@@ -3,31 +3,28 @@
 {% block title %}Lista de Clientes{% endblock %}
 
 {% block content %}
-<h2>Clientes Cadastrados</h2>
-<table border="1" cellpadding="5">
-  <tr>
-    <th>Nome</th>
-    <th>CPF</th>
-    {% if user.is_authenticated %}
-    <th>Ações</th>
+
+<main class="container">
+  <h2 class="titulo">Clientes Cadastrados</h2>
+
+  <div class="lista">
+    {% if clientes %}
+      {% for cliente in clientes %}
+        <div class="item">
+          <span>Nome: {{ cliente.nome }} | CPF: {{ cliente.cpf }}</span>
+
+          {% if user.is_authenticated %}
+          <span class="acoes">
+            <a href="{% url 'atualizar_cliente' cliente.id %}" class="btn-editar">Atualizar</a>
+            <a href="{% url 'excluir_cliente' cliente.id %}" class="btn-excluir">Excluir</a>
+          </span>
+          {% endif %}
+        </div>
+      {% endfor %}
+    {% else %}
+      <div class="item">Nenhum cliente cadastrado.</div>
     {% endif %}
-  </tr>
-  {% for cliente in clientes %}
-  <tr>
-    <td>{{ cliente.nome }}</td>
-    <td>{{ cliente.cpf }}</td>
-    {% if user.is_authenticated %}
-    <td>
-      <a href="{% url 'atualizar_cliente' cliente.id %}">Atualizar</a>
-      <a href="{% url 'excluir_cliente' cliente.id %}">Excluir</a>
-    </td>
-    {% endif %}
-  </tr>
-  {% empty %}
-  <tr>
-    <td colspan="{% if user.is_authenticated %}3{% else %}2{% endif %}">
-      Nenhum cliente cadastrado.</td>
-  </tr>
-  {% endfor %}
-</table>
+  </div>
+</main>
+
 {% endblock %}

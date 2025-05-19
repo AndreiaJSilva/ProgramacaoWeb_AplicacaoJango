@@ -3,38 +3,32 @@
 {% block title %}Lista de Compras{% endblock %}
 
 {% block content %}
-<h2>Lista de Compras</h2>
-<table border="1" cellpadding="5">
-  <thead>
-    <tr>
-      <th>Cliente</th>
-      <th>Medicamento</th>
-      <th>Quantidade</th>
-      <th>Data</th>
-      <th>Valor</th>
-      {% if user.is_authenticated %}
-      <th>Ações</th>
-      {% endif %}
-    </tr>
-  </thead>
-  <tbody>
-    {% for compra in compras %}
-    <tr>
-      <td>{{ compra.cliente.nome }}</td>
-      <td>{{ compra.medicamento.nomeMedicamento }}</td>
-      <td>{{ compra.quantidade }}</td>
-      <td>{{ compra.data }}</td>
-      <td>R$ {{ compra.valor }}</td>
-      <td>
-        <a href="{% url 'editar_compra' compra.pk %}">Editar</a> |
-        <a href="{% url 'excluir_compra' compra.pk %}">Excluir</a>
-      </td>    
-    </tr>
-    {% empty %}
-    <tr>
-      <td colspan="5">Nenhuma compra registrada.</td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
+<main class="container">
+  <h2 class="titulo">Lista de Compras</h2>
+
+  <div class="lista">
+    {% if compras %}
+      {% for compra in compras %}
+        <div class="item">
+          <span>
+            Cliente: {{ compra.cliente.nome }} | 
+            Medicamento: {{ compra.medicamento.nomeMedicamento }} | 
+            Quantidade: {{ compra.quantidade }} | 
+            Data: {{ compra.data|date:"d/m/Y" }} | 
+            Valor: R$ {{ compra.valor }}
+          </span>
+
+          {% if user.is_authenticated %}
+          <span class="acoes">
+            <a href="{% url 'editar_compra' compra.pk %}" class="btn-editar">Editar</a>
+            <a href="{% url 'excluir_compra' compra.pk %}" class="btn-excluir">Excluir</a>
+          </span>
+          {% endif %}
+        </div>
+      {% endfor %}
+    {% else %}
+      <div class="item">Nenhuma compra registrada.</div>
+    {% endif %}
+  </div>
+</main>
 {% endblock %}

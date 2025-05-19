@@ -7,22 +7,20 @@
 
   <title>{% block title %}Lavras Pharm{% endblock %}</title>
   {% load static %}
-  <link rel="stylesheet" href="{% static 'core/style.css' %}">
+  <link rel="stylesheet" href="{% static 'core/css/style.css' %}">
+  <link rel="stylesheet" href="{% static 'core/css/forms.css' %}">
 </head>
 
 <body>
 
-  <!-- Cabeçalho -->
-  <header class="top-bar">
-    <h1>Lavras Pharm</h1>
-  </header>
-
   <!-- Navbar -->
   <nav class="navbar">
-    <ul>
+    <ul class="menu">
+      <li><a href="/">Home</a></li>
+
       <li>
-        Cliente
-        <ul>
+        Clientes
+        <ul class="submenu">
           {% if user.is_authenticated %}
           <li><a href="{% url 'cadastrar_cliente' %}">Cadastrar</a></li>
           {% endif %}
@@ -32,7 +30,7 @@
   
       <li>
         Medicamentos
-        <ul>
+        <ul class="submenu">
           {% if user.is_authenticated %}
           <li><a href="{% url 'cadastrar_medicamento' %}">Cadastrar</a></li>
           {% endif %}
@@ -42,7 +40,7 @@
   
       <li>
         Compras
-        <ul>
+        <ul class="submenu">
           {% if user.is_authenticated %}
           <li><a href="{% url 'registrar_compra' %}">Registrar</a></li>
           {% endif %}
