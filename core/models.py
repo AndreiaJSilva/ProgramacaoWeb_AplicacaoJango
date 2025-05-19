@@ -7,7 +7,7 @@ class User(AbstractUser):
     pass
 
 class Cliente(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     nome = models.CharField(max_length=100)
     cpf = models.CharField(max_length=14, unique=True)
     endereco = models.TextField()
