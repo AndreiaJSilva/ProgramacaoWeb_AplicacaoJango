@@ -3,33 +3,27 @@
 {% block title %}Lista de Medicamentos{% endblock %}
 
 {% block content %}
-<h2>Medicamentos Cadastrados</h2>
-<table border="1">
-  <tr>
-    <th>Nome</th>
-    <th>Fabricante</th>
-    <th>Preço</th>
-    {% if user.is_authenticated %}
-    <th>Ações</th>
+<main class="container">
+  <h2 class="titulo">Medicamentos Cadastrados</h2>
+
+  <div class="lista">
+    {% if medicamentos %}
+      {% for medicamento in medicamentos %}
+        <div class="item">
+          <span>Nome: {{ medicamento.nomeMedicamento }} | Fabricante: {{ medicamento.fabricante }} | Preço:  R$ {{ medicamento.preco }}</span>
+
+          {% if user.is_authenticated %}
+          <span class="acoes">
+            <a href="{% url 'atualizar_medicamento' medicamento.id %}" class="btn-editar">Editar</a>
+            <a href="{% url 'excluir_medicamento' medicamento.id %}" class="btn-excluir">Excluir</a>
+          </span>
+          {% endif %}
+        </div>
+
+      {% endfor %}
+    {% else %}
+      <div class="item">Nenhum medicamento cadastrado.</div>
     {% endif %}
-  </tr>
-  {% for medicamento in medicamentos %}
-  <tr>
-    <td>{{ medicamento.nomeMedicamento }}</td>
-    <td>{{ medicamento.fabricante }}</td>
-    <td>{{ medicamento.preco }}</td>
-    <td>
-      <a href="{% url 'atualizar_medicamento' medicamento.id %}">Editar</a> |
-      <a href="{% url 'excluir_medicamento' medicamento.id %}">Excluir</a>
-    </td>
-  </tr>
-  {% empty %}
-  <tr>
-    <td colspan="5">Nenhum medicamento cadastrado.</td>
-  </tr>
-  {% endfor %}
-</table>
-{% if user.is_authenticated %}
-  <a href="{% url 'cadastrar_medicamento' %}">Cadastrar novo medicamento</a>
-{% endif %}
+  </div>
+</main>
 {% endblock %}
