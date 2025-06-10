@@ -27,8 +27,19 @@ def cadastrar_cliente(request):
     
     return render(request, 'core/cadastrar_cliente.html', {'form': form})
 
+
 def listar_clientes(request):
     clientes = Cliente.objects.all()
+    
+    # Adiciona a pesquisa
+    search = request.GET.get('search')
+    if search:
+        clientes = clientes.filter(
+            nome__icontains=search
+        ).union(
+            Cliente.objects.filter(cpf__icontains=search)
+        )
+    
     return render(request, 'core/listar_clientes.html', {'clientes': clientes})
 
 @login_required
@@ -60,8 +71,17 @@ def cadastrar_medicamento(request):
   return render(request, 'core/cadastrar_medicamento.html', {'form': form})
 
 def listar_medicamentos(request):
-  medicamentos = Medicamento.objects.all()
-  return render(request, 'core/listar_medicamentos.html', {'medicamentos': medicamentos})
+    medicamentos = Medicamento.objects.all()
+    
+    search = request.GET.get('search')
+    if search:
+        medicamentos = medicamentos.filter(
+            nomeMedicamento__icontains=search
+        ).union(
+            Medicamento.objects.filter(fabricante__icontains=search)
+        )
+    
+    return render(request, 'core/listar_medicamentos.html', {'medicamentos': medicamentos})
 
 @login_required
 def atualizar_medicamento(request, medicamento_id):
@@ -92,8 +112,17 @@ def registrar_compra(request):
   return render(request, 'core/registrar_compra.html', {'form': form})
 
 def lista_compras(request):
-  compras = Compra.objects.all()
-  return render(request, 'core/lista_compras.html', {'compras': compras})
+    compras = Compra.objects.all()
+    
+    search = request.GET.get('search')
+    if search:
+        compras = compras.filter(
+            cliente__nome__icontains=search
+        ).union(
+            Compra.objects.filter(medicamento__nomeMedicamento__icontains=search)
+        )
+    
+    return render(request, 'core/lista_compras.html', {'compras': compras})
 
 @login_required
 def editar_compra(request, pk):
