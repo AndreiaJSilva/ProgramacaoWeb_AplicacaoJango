@@ -1,8 +1,8 @@
-{% extends 'core/base_lista.html' %}
+{% extends 'core/pesquisa.html' %}
 
 {% block title %}Lista de Clientes{% endblock %}
 {% block titulo_lista %}Clientes Cadastrados{% endblock %}
-{% block placeholder_pesquisa %}Pesquisar por nome ou CPF...{% endblock %}
+{% block placeholder_pesquisa %}Buscar por nome ou CPF{% endblock %}
 {% block url_limpar %}{% url 'listar_clientes' %}{% endblock %}
 
 {% block lista_itens %}
@@ -12,7 +12,7 @@
             <span>Nome: {{ cliente.nome }} | CPF: {{ cliente.cpf }}</span>
             {% if user.is_authenticated %}
             <span class="acoes">
-                <a href="{% url 'atualizar_cliente' cliente.id %}" class="btn-editar">Atualizar</a>
+                <a href="{% url 'atualizar_cliente' cliente.id %}" class="btn-editar">Editar</a>
                 <a href="{% url 'excluir_cliente' cliente.id %}" class="btn-excluir">Excluir</a>
             </span>
             {% endif %}

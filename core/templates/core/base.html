@@ -50,7 +50,7 @@
   
       <li>
         {% if user.is_authenticated %}
-        <form method="post" action="{% url 'logout' %}" style="display:inline;">
+        <form method="post" action="{% url 'logout' %}" style="display:inline;" onsubmit="return confirmarSaida()">
           {% csrf_token %}
           <button type="submit" class="logout-link">Sair</button>
         </form>
@@ -66,6 +66,12 @@
     {% block content %}
     {% endblock %}
   </main>
+
+  <script>
+    function confirmarSaida() {
+      return confirm('Tem certeza que deseja sair?');
+    }
+  </script>
 
 </body>
 
