@@ -4,22 +4,34 @@
 {% block titulo_lista %}Lista de Compras{% endblock %}
 {% block placeholder_pesquisa %}Buscar por cliente ou medicamento{% endblock %}
 {% block url_limpar %}{% url 'lista_compras' %}{% endblock %}
+{% block htmx_attributes %}
+hx-get="{% url 'buscar_compras_htmx' %}"
+hx-target="#results-container"
+hx-trigger="keyup changed delay:300ms"
+{% endblock %}
 
 {% block lista_itens %}
     {% if compras %}
         {% for compra in compras %}
-        <div class="item">
+        <div class="item" id="compra-{{ compra.id }}">
             <span>
                 Cliente: {{ compra.cliente.nome }} | 
-                Medicamento: {{ compra.medicamento.nomeMedicamento }} | 
-                Quantidade: {{ compra.quantidade }} | 
+                Medicamento: {{ compra.medicamento.nomeMedicamento }} |
                 Data: {{ compra.data|date:"d/m/Y" }} | 
                 Valor: R$ {{ compra.valor }}
             </span>
             {% if user.is_authenticated %}
             <span class="acoes">
-                <a href="{% url 'editar_compra' compra.pk %}" class="btn-editar">Editar</a>
-                <a href="{% url 'excluir_compra' compra.pk %}" class="btn-excluir">Excluir</a>
+                <a href="#" 
+                   hx-get="{% url 'editar_compra_htmx' compra.id %}"
+                   hx-target="#compra-{{ compra.id }}"
+                   hx-swap="outerHTML"
+                   class="btn-editar">Editar</a>
+                <a href="#" 
+                   hx-get="{% url 'excluir_compra_htmx' compra.id %}"
+                   hx-target="#compra-{{ compra.id }}"
+                   hx-swap="outerHTML"
+                   class="btn-excluir">Excluir</a>
             </span>
             {% endif %}
         </div>

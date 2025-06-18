@@ -1,0 +1,18 @@
+<div class="item" id="compra-{{ compra.id }}">
+    <span>
+        Cliente: {{ compra.cliente.nome }} | 
+        Medicamento: {{ compra.medicamento.nomeMedicamento }} |
+        Data: {{ compra.data|date:"d/m/Y" }} | 
+        Valor: R$ {{ compra.valor }}
+    </span>
+    {% if user.is_authenticated %}
+    <span class="acoes">
+        <a href="#" 
+           hx-get="{% url 'editar_compra_htmx' compra.id %}"
+           hx-target="#compra-{{ compra.id }}"
+           hx-swap="outerHTML"
+           class="btn-editar">Editar</a>
+        <a href="{% url 'excluir_compra' compra.pk %}" class="btn-excluir">Excluir</a>
+    </span>
+    {% endif %}
+</div>

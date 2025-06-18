@@ -1,4 +1,4 @@
-<!-- core/templates/core/base_lista.html -->
+<!-- core/templates/core/pesquisa.html -->
 {% extends 'core/base.html' %}
 
 {% block content %}
@@ -14,15 +14,16 @@
                 class="search-input"
                 placeholder="{% block placeholder_pesquisa %}Pesquisar...{% endblock %}" 
                 value="{{ request.GET.search }}"
+                {% block htmx_attributes %}{% endblock %}
             >
-            <button type="submit" class="search-btn">Buscar</button>
+            <!-- <button type="submit" class="search-btn">Buscar</button> -->
             {% if request.GET.search %}
                 <a href="{% block url_limpar %}{% endblock %}" class="search-clear">Limpar</a>
             {% endif %}
         </form>
     </div>
 
-    <div class="lista">
+    <div class="lista" id="results-container">
         {% block lista_itens %}{% endblock %}
     </div>
 </main>

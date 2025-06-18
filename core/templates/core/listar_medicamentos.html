@@ -4,16 +4,29 @@
 {% block titulo_lista %}Medicamentos Cadastrados{% endblock %}
 {% block placeholder_pesquisa %}Buscar por nome ou fabricante{% endblock %}
 {% block url_limpar %}{% url 'listar_medicamentos' %}{% endblock %}
+{% block htmx_attributes %}
+hx-get="{% url 'buscar_medicamentos_htmx' %}"
+hx-target="#results-container"
+hx-trigger="keyup changed delay:300ms"
+{% endblock %}
 
 {% block lista_itens %}
     {% if medicamentos %}
         {% for medicamento in medicamentos %}
-        <div class="item">
+        <div class="item" id="medicamento-{{ medicamento.id }}">
             <span>Nome: {{ medicamento.nomeMedicamento }} | Fabricante: {{ medicamento.fabricante }} | Preço: R$ {{ medicamento.preco }}</span>
             {% if user.is_authenticated %}
             <span class="acoes">
-                <a href="{% url 'atualizar_medicamento' medicamento.id %}" class="btn-editar">Editar</a>
-                <a href="{% url 'excluir_medicamento' medicamento.id %}" class="btn-excluir">Excluir</a>
+                <a href="#" 
+                   hx-get="{% url 'editar_medicamento_htmx' medicamento.id %}"
+                   hx-target="#medicamento-{{ medicamento.id }}"
+                   hx-swap="outerHTML"
+                   class="btn-editar">Editar</a>
+                <a href="#" 
+                   hx-get="{% url 'excluir_medicamento_htmx' medicamento.id %}"
+                   hx-target="#medicamento-{{ medicamento.id }}"
+                   hx-swap="outerHTML"
+                   class="btn-excluir">Excluir</a>
             </span>
             {% endif %}
         </div>
