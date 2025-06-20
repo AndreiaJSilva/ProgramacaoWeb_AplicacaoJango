@@ -12,7 +12,11 @@
            hx-target="#compra-{{ compra.id }}"
            hx-swap="outerHTML"
            class="btn-editar">Editar</a>
-        <a href="{% url 'excluir_compra' compra.pk %}" class="btn-excluir">Excluir</a>
+        <a href="#" 
+           hx-get="{% url 'excluir_compra_htmx' compra.id %}"
+           hx-target="#compra-{{ compra.id }}"
+           hx-swap="outerHTML"
+           class="btn-excluir">Excluir</a>
     </span>
     {% endif %}
 </div>

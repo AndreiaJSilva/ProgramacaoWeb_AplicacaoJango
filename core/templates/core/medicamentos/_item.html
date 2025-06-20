@@ -7,7 +7,11 @@
            hx-target="#medicamento-{{ medicamento.id }}"
            hx-swap="outerHTML"
            class="btn-editar">Editar</a>
-        <a href="{% url 'excluir_medicamento' medicamento.id %}" class="btn-excluir">Excluir</a>
+        <a href="#" 
+           hx-get="{% url 'excluir_medicamento_htmx' medicamento.id %}"
+           hx-target="#medicamento-{{ medicamento.id }}"
+           hx-swap="outerHTML"
+           class="btn-excluir">Excluir</a>
     </span>
     {% endif %}
 </div>

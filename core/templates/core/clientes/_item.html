@@ -7,7 +7,11 @@
            hx-target="#cliente-{{ cliente.id }}"
            hx-swap="outerHTML"
            class="btn-editar">Editar</a>
-        <a href="{% url 'excluir_cliente' cliente.id %}" class="btn-excluir">Excluir</a>
+        <a href="#" 
+           hx-get="{% url 'excluir_cliente_htmx' cliente.id %}"
+           hx-target="#cliente-{{ cliente.id }}"
+           hx-swap="outerHTML"
+           class="btn-excluir">Excluir</a>
     </span>
     {% endif %}
 </div>

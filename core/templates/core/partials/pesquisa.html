@@ -1,11 +1,9 @@
-<!-- core/templates/core/pesquisa.html -->
 {% extends 'core/base.html' %}
 
 {% block content %}
 <main class="container">
     <h2 class="titulo">{% block titulo_lista %}{% endblock %}</h2>
     
-    <!-- Barra de Pesquisa posicionada à direita, abaixo do título -->
     <div class="search-container">
         <form method="GET" class="search-form">
             <input 
@@ -16,7 +14,6 @@
                 value="{{ request.GET.search }}"
                 {% block htmx_attributes %}{% endblock %}
             >
-            <!-- <button type="submit" class="search-btn">Buscar</button> -->
             {% if request.GET.search %}
                 <a href="{% block url_limpar %}{% endblock %}" class="search-clear">Limpar</a>
             {% endif %}
